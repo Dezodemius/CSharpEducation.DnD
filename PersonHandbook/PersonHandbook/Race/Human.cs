@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace PersonHandbook
 {
-    internal class Test
+  public class Human : Race // Человек
+  {
+    public Human():base(9,9,9,9,9,9)
     {
+
     }
+  }
 }

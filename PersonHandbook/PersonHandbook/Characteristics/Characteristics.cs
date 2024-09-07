@@ -28,7 +28,7 @@ namespace PersonHandbook
 
     #endregion
 
-
+    #region Методы
     private void AddSkills()
     {
       Strength.Skills.Add(new Skill("Athletics", 0));
@@ -78,20 +78,23 @@ namespace PersonHandbook
         i.UpdateValue(Charisma.Modificator, proficiencyBonus);
       }
     }
+    #endregion
+
     #region Конструкторы
 
     public Characteristics()
     {
+      Strength = new Characteristic();
       Strength.Value = 1;
-
+      Dexterity = new Characteristic();
       Dexterity.Value = 1;
-
+      Physique = new Characteristic();
       Physique.Value = 1;
-
+      Intellect = new Characteristic();
       Intellect.Value = 1;
-
+      Wisdom = new Characteristic();
       Wisdom.Value = 1;
-
+      Charisma= new Characteristic();
       Charisma.Value = 1;
 
       AddSkills();
@@ -99,11 +102,17 @@ namespace PersonHandbook
 
     public Characteristics(int strength, int dexterity, int physique, int intellect, int wisdom, int charisma)
     {
+      Strength = new Characteristic();
       Strength.Value = strength;
+      Dexterity = new Characteristic();
       Dexterity.Value = dexterity;
+      Physique = new Characteristic();
       Physique.Value = physique;
+      Intellect = new Characteristic();
       Intellect.Value = intellect;
+      Wisdom = new Characteristic();
       Wisdom.Value = wisdom;
+      Charisma = new Characteristic();
       Charisma.Value = charisma;
 
       AddSkills();

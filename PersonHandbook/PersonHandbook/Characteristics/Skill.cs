@@ -22,7 +22,7 @@ namespace PersonHandbook
     /// <param name="modificatorValue">Значение модификатора</param>
     public void UpdateValue(int characteristicModificatorValue, int ProficiencyBonus)
     {
-      Value = characteristicValue + modificatorValue;
+      Value = characteristicModificatorValue + ProficiencyBonus;
     }
 
     public Skill(string name, int value)

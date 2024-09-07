@@ -17,5 +17,10 @@ namespace PersonHandbook
     public int Modificator => (this.Value - 10) / 2;
 
     public List<Skill> Skills { get; set; }
+
+    public Characteristic()
+    {
+      Skills = new List<Skill>();
+    }
   }
 }
