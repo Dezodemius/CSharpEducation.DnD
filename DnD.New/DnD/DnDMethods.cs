@@ -37,6 +37,11 @@ namespace DnD
             }
         }
 
+        public CharacterSheet FindCharacterById(int id)
+        {
+            return characters.Find(i => i.Id == id);
+        }
+
         public void AddItem(int id, Inventory item)
         {
             
@@ -62,7 +67,30 @@ namespace DnD
     
             }
         }
-    
+
+        public void RemoveItem(int id, Inventory item)
+        {
+            var character = characters.Find(i => i.Id == id);
+
+            if (character == null)
+            {
+                Console.WriteLine($"Персонаж с id {id} не найден.");
+                return;
+            }
+
+            var itemToRemove = character.Items.Find(i => i.ItemName == item.ItemName);
+
+            if (itemToRemove != null)
+            {
+                character.Items.Remove(itemToRemove);
+                Console.WriteLine($"Предмет {item.ItemName} удален у персонажа {character.Name}.");
+            }
+            else
+            {
+                Console.WriteLine($"Предмет {item.ItemName} не найден у персонажа {character.Name}.");
+            }
+        }
+
 
 
 
