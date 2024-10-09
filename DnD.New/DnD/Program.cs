@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DnD.Backpack;
+using System;
 
 namespace DnD
 {
@@ -7,6 +8,14 @@ namespace DnD
         static void Main(string[] args)
         {
             DnDMethods dnDMethods = new DnDMethods();
+            List<Inventory> items = new List<Inventory>
+            {
+                new Inventory("Секира", "Страшная ржавая секира", 6, true),
+                new Inventory("Меч","Блестящий меч", 5, true ),
+                new Inventory("Монета", "Золотая монета", 1, false),
+                new Inventory("Куртка", "Куртка замшевая", 4, false),
+                new Inventory("Магнитофон", "Магнитофон отечественный", 2, false)
+            };
 
             while (true)
             {
@@ -49,7 +58,7 @@ namespace DnD
                         Console.Write("Введите значение телосложения: ");
                         int physique = Convert.ToInt32(Console.ReadLine());
 
-                        Console.Write("Введите значение интелекта: ");
+                        Console.Write("Введите значение интеллекта: ");
                         int intelligence = Convert.ToInt32(Console.ReadLine());
 
                         Console.Write("Введите значение мудрости: ");
@@ -67,8 +76,48 @@ namespace DnD
                         Console.Write("Введите значение скорости: ");
                         int speed = Convert.ToInt32(Console.ReadLine());
 
-                        dnDMethods.AddCharacters(new CharacterSheet(id, name, race, strength, agility, physique, intelligence, wisdom, charisma, hitPoints, armorClass,speed));
+                       
+                        Console.WriteLine("Выберите предметы для персонажа:");
+                        for (int i = 0; i < items.Count; i++)
+                        {
+                            Console.WriteLine($"{i + 1}. {items[i].ItemName} - {items[i].Description}");
+                        }
+
+                        Console.Write("Введите id персонажа для добавления предметов: ");
+                        int characterId = Convert.ToInt32(Console.ReadLine());
+
+                        Console.WriteLine("Выберите предметы для персонажа:");
+                        for (int i = 0; i < items.Count; i++)
+                        {
+                            Console.WriteLine($"{i + 1}. {items[i].ItemName} - {items[i].Description}");
+                        }
+
+                        Console.WriteLine("Введите номера предметов через запятую (например, 1,3):");
+                        string[] itemChoices = Console.ReadLine().Split(',');
+
+                       
+                        foreach (string itemChoice in itemChoices)
+                        {
+                            if (int.TryParse(itemChoice, out int itemIndex))
+                            {
+                                itemIndex--; 
+                                if (itemIndex >= 0 && itemIndex < items.Count)
+                                {
+                                    
+                                    dnDMethods.AddItem(id, items[itemIndex]);
+          
+                                }
+                                else
+                                {
+                                    Console.WriteLine($"Предмет с номером {itemIndex + 1} не существует.");
+                                }
+                            }
+                        }
+
+                        dnDMethods.AddCharacters(new CharacterSheet(id, name, race, strength, agility, physique,
+                            intelligence, wisdom, charisma, hitPoints, armorClass, speed, new List<Inventory>()));
                         Console.WriteLine($"Персонаж {name} добавлен");
+
                         break;
                    
                     case 2:

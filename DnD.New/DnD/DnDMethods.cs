@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DnD.Backpack;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,17 +36,67 @@ namespace DnD
                 Console.WriteLine("Такого персонажа не существует");
             }
         }
-        private void SaveFile()
+
+        public void AddItem(int id, Inventory item)
+        {
+            
+            var character = characters.Find(i => i.Id == id);
+
+            //не видит id
+            if (character == null)
+            {
+                Console.WriteLine($"Персонаж с id {id} не найден.");
+                return;
+            }
+
+            
+            if (character.Items.Exists(i => i.ItemName == item.ItemName))
+            {
+                Console.WriteLine($"Предмет {item.ItemName} уже есть у персонажа {character.Name}.");
+            }
+            else
+            {
+               
+                character.Items.Add(item);
+                Console.WriteLine($"Предмет {item.ItemName} успешно добавлен персонажу {character.Name}.");
+    
+            }
+        }
+    
+
+
+
+        public void DisplayItems(CharacterSheet character)
+        {
+            if (character.Items.Count == 0)
+            {
+                Console.WriteLine($"{character.Name} не имеет предметов.");
+            }
+            else
+            {
+                Console.WriteLine($"Инвентарь персонажа {character.Name}:");
+                foreach (var item in character.Items)
+                {
+                    Console.WriteLine($"{item.ItemName}: {item.Description}");
+                }
+            }
+        }
+    
+
+
+    private void SaveFile()
         {
             using (var writer = new StreamWriter(FileСharaters))
             {
                 foreach (var character in characters)
                 {
                     writer.WriteLine($"{character.Id};{character.Name};{character.Race};{character.Strenght};{character.Dexterity};{character.Сonstitution};" +
-                        $"{character.Intelligence};{character.Wisdom};{character.Charisma};{character.HitPoints};{character.ArmorClass};{character.Speed}");
+                        $"{character.Intelligence};{character.Wisdom};{character.Charisma};{character.HitPoints};{character.ArmorClass};{character.Speed}; {character.Items} ");
                 }
             }
         }
+
+
         private void LoadFile()
         {
             if (File.Exists(FileСharaters))
@@ -54,15 +105,36 @@ namespace DnD
                 foreach (var line in lines)
                 {
                     var parts = line.Split(';');
-                    if (parts.Length == 12)
+                    if (parts.Length >= 13)
                     {
-                        characters.Add(new CharacterSheet(Convert.ToInt32(parts[0]), parts[1], parts[2], Convert.ToInt32(parts[3]), Convert.ToInt32(parts[4]), 
-                            Convert.ToInt32(parts[5]), Convert.ToInt32(parts[6]), Convert.ToInt32(parts[7]), Convert.ToInt32(parts[8]), 
-                            Convert.ToInt32(parts[9]), Convert.ToInt32(parts[10]), Convert.ToInt32(parts[11])));
+                        //тут тоже может косяк
+                        string itemsString = parts[12];
+                        List<Inventory> items = itemsString.Split(',')
+                            .Select(itemName => new Inventory(itemName.Trim(), "", 0, false)) 
+                            .ToList();
+
+                        var character = new CharacterSheet(
+                            Convert.ToInt32(parts[0]),
+                            parts[1],
+                            parts[2],
+                            Convert.ToInt32(parts[3]),
+                            Convert.ToInt32(parts[4]),
+                            Convert.ToInt32(parts[5]),
+                            Convert.ToInt32(parts[6]),
+                            Convert.ToInt32(parts[7]),
+                            Convert.ToInt32(parts[8]),
+                            Convert.ToInt32(parts[9]),
+                            Convert.ToInt32(parts[10]),
+                            Convert.ToInt32(parts[11]),
+                            items 
+                        );
+
+                       
                     }
                 }
             }
         }
-
     }
-}
+     
+ }
+
