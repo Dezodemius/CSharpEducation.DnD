@@ -15,7 +15,7 @@ namespace DnD
                 return;
 
             Document document = new Document ();
-            document.LoadFromFile("FileTemplate.docx");
+            document.LoadFromFile("FileTemplate.docx"); //FileTemplate необходимо закинуть в bin...debug
             document.Replace("InputName", character.Name, true, true);
             document.Replace("InputRace", character.Race, true, true);
             document.Replace("InputStr", character.Strenght.ToString(), true, true);
