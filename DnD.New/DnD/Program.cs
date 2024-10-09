@@ -76,7 +76,10 @@ namespace DnD
                         Console.Write("Введите значение скорости: ");
                         int speed = Convert.ToInt32(Console.ReadLine());
 
-                       
+
+                        dnDMethods.AddCharacters(new CharacterSheet(id, name, race, strength, agility, physique,
+                            intelligence, wisdom, charisma, hitPoints, armorClass, speed));
+
                         Console.WriteLine("Выберите предметы для персонажа:");
                         for (int i = 0; i < items.Count; i++)
                         {
@@ -92,9 +95,11 @@ namespace DnD
                             Console.WriteLine($"{i + 1}. {items[i].ItemName} - {items[i].Description}");
                         }
 
+
+
                         Console.WriteLine("Введите номера предметов через запятую (например, 1,3):");
                         string[] itemChoices = Console.ReadLine().Split(',');
-
+                        var selectedItems = new List<Inventory>();
                        
                         foreach (string itemChoice in itemChoices)
                         {
@@ -103,8 +108,7 @@ namespace DnD
                                 itemIndex--; 
                                 if (itemIndex >= 0 && itemIndex < items.Count)
                                 {
-                                    
-                                    dnDMethods.AddItem(id, items[itemIndex]);
+                                    dnDMethods.AddItem(id, items[itemIndex]); 
           
                                 }
                                 else
@@ -114,8 +118,8 @@ namespace DnD
                             }
                         }
 
-                        dnDMethods.AddCharacters(new CharacterSheet(id, name, race, strength, agility, physique,
-                            intelligence, wisdom, charisma, hitPoints, armorClass, speed, new List<Inventory>()));
+
+
                         Console.WriteLine($"Персонаж {name} добавлен");
 
                         break;
