@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Spire.Doc;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace DnD
 {
@@ -13,9 +14,11 @@ namespace DnD
         {
             if (character == null)
                 return;
+            
+            var path = Path.GetDirectoryName(Path.GetDirectoryName (Path.GetDirectoryName(Directory.GetCurrentDirectory())));
 
             Document document = new Document ();
-            document.LoadFromFile("FileTemplate.docx"); //FileTemplate необходимо закинуть в bin...debug
+            document.LoadFromFile(Path.Combine(path, "FileTemplate.docx")); //FileTemplate необходимо закинуть в bin...debug
             document.Replace("InputName", character.Name, true, true);
             document.Replace("InputRace", character.Race, true, true);
             document.Replace("InputStr", character.Strenght.ToString(), true, true);
