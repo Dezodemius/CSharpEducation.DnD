@@ -4,6 +4,7 @@ namespace DnD
 {
     public class Program
     {
+
         static void Main(string[] args)
         {
             DnDMethods dnDMethods = new DnDMethods();
@@ -13,11 +14,11 @@ namespace DnD
                 Console.WriteLine("Выберите операцию:");
                 Console.WriteLine("1. Добавить персонажа");
                 Console.WriteLine("2. Получить персонажа по id");
-                Console.WriteLine("3. Подготовить лист персонажа в PDF формате");
+                Console.WriteLine("3. Подготовить лист персонажа в PDF формате по id");
 
-                int choice  = Convert.ToInt32(Console.ReadLine());
+                int choice = Convert.ToInt32(Console.ReadLine());
 
-                switch(choice)
+                switch (choice)
                 {
                     case 1:
                         Console.Write("Введите Id персонажа: ");
@@ -26,7 +27,7 @@ namespace DnD
                         Console.Write("Введите имя персонажа: ");
                         string name = Console.ReadLine();
 
-                        string[] races = { "Человек", "Эльф", "Гном", "Хоббит", "Дварф", "Орк","Гоблин", "Удмурт", "Татарин"};
+                        string[] races = { "Человек", "Эльф", "Гном", "Хоббит", "Дварф", "Орк", "Гоблин", "Удмурт", "Татарин" };
                         Console.WriteLine("Выберите расу персонажа:");
                         for (int i = 0; i < races.Length; i++)
                         {
@@ -67,15 +68,22 @@ namespace DnD
                         Console.Write("Введите значение скорости: ");
                         int speed = Convert.ToInt32(Console.ReadLine());
 
-                        dnDMethods.AddCharacters(new CharacterSheet(id, name, race, strength, agility, physique, intelligence, wisdom, charisma, hitPoints, armorClass,speed));
+                        dnDMethods.AddCharacters(new CharacterSheet(id, name, race, strength, agility, physique, intelligence, wisdom, charisma, hitPoints, armorClass, speed));
                         Console.WriteLine($"Персонаж {name} добавлен");
                         break;
-                   
+
                     case 2:
                         Console.WriteLine("Введите id персонажа");
                         int findId = Convert.ToInt32(Console.ReadLine());
                         dnDMethods.FindCharacters(findId);
-                        break; 
+                        break;
+                    case 3:
+                        Console.WriteLine("Введите id персонажа");
+                        int idSave = Convert.ToInt32(Console.ReadLine());
+                        WordDocument wordDocument = new WordDocument();
+                        wordDocument.CreatePdfSheet(dnDMethods.GetCharacters(idSave));
+
+                        break;
                 }
             }
         }
