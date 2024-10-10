@@ -47,7 +47,7 @@ namespace DnD
             
             var character = characters.Find(i => i.Id == id);
 
-            //не видит id
+            
             if (character == null)
             {
                 Console.WriteLine($"Персонаж с id {id} не найден.");

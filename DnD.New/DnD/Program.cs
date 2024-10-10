@@ -14,7 +14,8 @@ namespace DnD
                 new Inventory("Меч","Блестящий меч", 5, true ),
                 new Inventory("Монета", "Золотая монета", 1, false),
                 new Inventory("Куртка", "Куртка замшевая", 4, false),
-                new Inventory("Магнитофон", "Магнитофон отечественный", 2, false)
+                new Inventory("Магнитофон", "Магнитофон отечественный", 2, false),
+                new Inventory("Кинокамера", "Кинокамера заграничная", 3, false)
             };
 
             while (true)
@@ -24,6 +25,7 @@ namespace DnD
                 Console.WriteLine("2. Получить персонажа по id");
                 Console.WriteLine("3. Показать инвентарь персонажа");
                 Console.WriteLine("4. Удалить предмет у персонажа");
+                Console.WriteLine("5. Подготовить лист персонажа в PDF формате");
 
                 int choice = Convert.ToInt32(Console.ReadLine());
 
