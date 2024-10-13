@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace DnD
 {
@@ -67,7 +69,52 @@ namespace DnD
                         Console.Write("Введите значение скорости: ");
                         int speed = Convert.ToInt32(Console.ReadLine());
 
-                        dnDMethods.AddCharacters(new CharacterSheet(id, name, race, strength, agility, physique, intelligence, wisdom, charisma, hitPoints, armorClass,speed));
+						string[] skills =
+                        {
+                            "Акробатика",
+                            "Уход за животными",
+                            "Магия",
+							"Атлетика",
+							"Обман",
+							"История",
+                            "Анализ",
+                            "Запугивание",
+                            "Проницательность",
+                            "Медицина",
+                            "Природа",
+                            "Внимательность",
+                            "Выступление",
+                            "Убеждение",
+                            "Религия",
+                            "Ловкость рук",
+                            "Скрытность",
+                            "Выживание"
+						};
+                        int[] valueSkills = new int[skills.Length];
+
+						int skillChoice;
+						do
+						{
+							Console.WriteLine("Выберите нывыки:\nМаксимальное значение 2, приповторном выборе сбрасывается до 0");
+							for (int i = 0; i < skills.Length; i++)
+							{
+								Console.WriteLine($"{i + 1}. {skills[i]} = {valueSkills[i]}");
+							}
+							Console.WriteLine("0. Сохранить навыки");
+							Console.Write("Введите номер нывыка: ");
+							skillChoice = Convert.ToInt32(Console.ReadLine());
+                            --skillChoice;
+
+							if (skillChoice > -1 && skillChoice < skills.Length)
+                            {
+                                valueSkills[skillChoice]++;
+                                if (valueSkills[skillChoice] > 2)
+                                    valueSkills[skillChoice] = 0;
+							}
+						} while (skillChoice != -1);
+
+
+						dnDMethods.AddCharacters(new CharacterSheet(id, name, race, strength, agility, physique, intelligence, wisdom, charisma, hitPoints, armorClass,speed, valueSkills[0], valueSkills[1], valueSkills[2], valueSkills[3], valueSkills[4], valueSkills[5], valueSkills[6], valueSkills[7], valueSkills[8], valueSkills[9], valueSkills[10], valueSkills[11], valueSkills[12], valueSkills[13], valueSkills[14], valueSkills[15], valueSkills[16], valueSkills[17]));
                         Console.WriteLine($"Персонаж {name} добавлен");
                         break;
                    
