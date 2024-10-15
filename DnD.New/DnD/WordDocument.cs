@@ -30,6 +30,17 @@ namespace DnD
             document.Replace("InputHp", character.HitPoints.ToString(), true, true);
             document.Replace("InputArmor", character.ArmorClass.ToString(), true, true);
             document.Replace("InputSpeed", character.Speed.ToString(), true, true);
+            if (character.Items.Count == 0)
+                document.Replace("InputInv", "Empty", true, true);
+            else
+            {
+                StringBuilder sb = new StringBuilder();
+                foreach (var item in character.Items)
+                {
+                    sb.AppendLine(item.GetInfo());
+                }
+                document.Replace("InputInv", sb.ToString(), true, true);
+            }
 
             document.SaveToFile($"{character.Name} - {character.Race}.pdf", FileFormat.PDF);
             Console.WriteLine("Файл PDF сохранен");

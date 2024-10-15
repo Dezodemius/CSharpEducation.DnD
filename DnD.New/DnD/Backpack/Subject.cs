@@ -22,7 +22,11 @@ namespace DnD.Backpack
         {
             Console.WriteLine($"Name: {ItemName}");
             Console.WriteLine($"Description: {Description}");
-
         }
+        public virtual string GetInfo()
+        {
+            return $"{ItemName}: {Description}";
+        }
+
     }
 }

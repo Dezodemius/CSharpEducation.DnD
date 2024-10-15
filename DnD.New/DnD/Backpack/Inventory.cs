@@ -21,10 +21,14 @@ namespace DnD.Backpack
         public override void ShowInfo()
         {
             base.ShowInfo();
-         
         }
+        public override string GetInfo()
+        {
+            return base.GetInfo();
+        }
+
     }
 
-    
+
 
 }
