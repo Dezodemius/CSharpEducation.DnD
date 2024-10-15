@@ -170,7 +170,7 @@ namespace DnD
                     if (parts.Length >= 13)
                     {
                         
-                        string itemsString = parts[12];
+                        string itemsString = parts[30];
                         List<Inventory> items = itemsString.Split(',')
                             .Select(itemName => new Inventory(itemName.Trim(), "", 0, false)) 
                             .ToList();
@@ -188,7 +188,25 @@ namespace DnD
                             Convert.ToInt32(parts[9]),
                             Convert.ToInt32(parts[10]),
                             Convert.ToInt32(parts[11]),
-                            items 
+							Convert.ToInt32(parts[12]),
+							Convert.ToInt32(parts[13]),
+							Convert.ToInt32(parts[14]),
+							Convert.ToInt32(parts[15]),
+							Convert.ToInt32(parts[16]),
+							Convert.ToInt32(parts[17]),
+							Convert.ToInt32(parts[18]),
+							Convert.ToInt32(parts[19]),
+							Convert.ToInt32(parts[20]),
+							Convert.ToInt32(parts[21]),
+							Convert.ToInt32(parts[22]),
+							Convert.ToInt32(parts[23]),
+							Convert.ToInt32(parts[24]),
+							Convert.ToInt32(parts[25]),
+							Convert.ToInt32(parts[26]),
+							Convert.ToInt32(parts[27]),
+							Convert.ToInt32(parts[28]),
+							Convert.ToInt32(parts[29]),
+							items 
                         );
 
                        
@@ -196,7 +214,55 @@ namespace DnD
                 }
             }
         }
-    }
+
+		public int maxSkills(int id)
+		{
+			var character = GetCharacters(id);
+			List<int> numbers = new List<int> { character.Strenght, character.Dexterity, character.Сonstitution, character.Intelligence, character.Wisdom, character.Charisma};
+			numbers.Sort();
+			return (numbers.Max() - 10) / 2;
+		}
+
+		public int Modification(int id, int skill)
+		{
+			var character = GetCharacters(id);
+
+			int modification = 0;
+			switch (nameof(skill))
+			{
+				case "acrobatics":
+				case "sleight_Of_Hand":
+				case "stealth":
+					modification = (character.Dexterity - 10) / 2;
+					break;
+				case "animal_Handling":
+				case "insight":
+				case "medicine":
+				case "perception":
+				case "survival":
+					modification = (character.Wisdom - 10) / 2;
+					break;
+				case "arcana":
+				case "history":
+				case "investigation":
+				case "nature":
+				case "religion":
+					modification = (character.Intelligence - 10) / 2;
+					break;
+				case "athletics":
+					modification = (character.Strenght - 10) / 2;
+					break;
+				case "deception":
+				case "intimidation":
+				case "performance":
+				case "persuasion":
+					modification = (character.Charisma - 10) / 2;
+				default:
+					break;
+			}
+			return modification;
+		}
+	}
      
  }
 
