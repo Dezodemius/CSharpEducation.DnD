@@ -54,6 +54,23 @@ namespace DnD
                 return;
             }
 
+            //Добавление веса рюкзака, подпись оружия
+            int weaponCount = character.Items.Count(i => i.IsWeapon);
+            double backpackWeigt = character.Items.Sum(i => i.Weight) + item.Weight;
+
+            if (backpackWeigt > 20)
+            {
+                Console.WriteLine("Рюкзак персонажа переполнен");
+                return;
+            }
+
+            
+            if (item.IsWeapon && weaponCount >= 2) 
+            {
+                Console.WriteLine($"У персонажа {character.Name} уже два оружия, добавление не возможно");
+                return;
+            }
+
             
             if (character.Items.Exists(i => i.ItemName == item.ItemName))
             {
@@ -64,6 +81,7 @@ namespace DnD
                
                 character.Items.Add(item);
                 Console.WriteLine($"Предмет {item.ItemName} успешно добавлен персонажу {character.Name}.");
+                Console.WriteLine($"Текущий вес рюкзака: {character.Items.Sum(i => i.Weight)}");
     
             }
         }
@@ -103,10 +121,11 @@ namespace DnD
             else
             {
                 Console.WriteLine($"Инвентарь персонажа {character.Name}:");
-                foreach (var item in character.Items)
-                {
-                    Console.WriteLine($"{item.ItemName}: {item.Description}");
-                }
+                string itemsList = string.Join(", ", character.Items.Select(item =>
+                $"{item.ItemName}{(item.IsWeapon ? "(Оружие)" : " " )}")); //Теперь все инструменты из класса используются и выводится красиво
+                Console.WriteLine(itemsList);
+                double backpackWeigtForDisplay = character.Items.Sum(i => i.Weight);
+                Console.WriteLine($"Общий вес рюкзака: {backpackWeigtForDisplay}");
             }
         }
     
@@ -135,7 +154,7 @@ namespace DnD
                     var parts = line.Split(';');
                     if (parts.Length >= 13)
                     {
-                        //тут тоже может косяк
+                        
                         string itemsString = parts[12];
                         List<Inventory> items = itemsString.Split(',')
                             .Select(itemName => new Inventory(itemName.Trim(), "", 0, false)) 
