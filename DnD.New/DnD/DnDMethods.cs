@@ -153,7 +153,11 @@ namespace DnD
                 foreach (var character in characters)
                 {
                     writer.WriteLine($"{character.Id};{character.Name};{character.Race};{character.Strenght};{character.Dexterity};{character.Сonstitution};" +
-                        $"{character.Intelligence};{character.Wisdom};{character.Charisma};{character.HitPoints};{character.ArmorClass};{character.Speed}; {character.Items} ");
+                        $"{character.Intelligence};{character.Wisdom};{character.Charisma};{character.HitPoints};{character.ArmorClass};{character.Speed};" +
+						$"{character.Acrobatics};{character.Animal_Handling};{character.Arcana};{character.Athletics};{character.Deception};{character.History};" +
+						$"{character.Insight};{character.Intimidation};{character.Investigation};{character.Medicine};{character.Nature};{character.Perception};" +
+						$"{character.Performance};{character.Persuasion};{character.Religion};{character.Sleight_Of_Hand};{character.Stealth};{character.Survival};" +
+						$"{ character.Items} ");
                 }
             }
         }
