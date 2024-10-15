@@ -4,6 +4,7 @@ namespace DnD
 {
     public class Program
     {
+
         static void Main(string[] args)
         {
             DnDMethods dnDMethods = new DnDMethods();
@@ -192,3 +193,16 @@ namespace DnD
 
 
 
+                        break;
+                    case 3:
+                        Console.WriteLine("Введите id персонажа");
+                        int idSave = Convert.ToInt32(Console.ReadLine());
+                        WordDocument wordDocument = new WordDocument();
+                        wordDocument.CreatePdfSheet(dnDMethods.GetCharacters(idSave));
+
+                        break;
+                }
+            }
+        }
+    }
+}

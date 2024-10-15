@@ -132,6 +132,21 @@ namespace DnD
 
 
     private void SaveFile()
+
+        public CharacterSheet GetCharacters (int id) //Добавил метод возврата данных персонажа по id
+        {
+            var character = characters.Find(i => i.Id == id);
+            if (character != null)
+            {
+                return character;
+            }
+            else
+            {
+                Console.WriteLine("Такого персонажа не существует");
+                return null;
+            }
+        }
+        private void SaveFile()
         {
             using (var writer = new StreamWriter(FileСharaters))
             {
