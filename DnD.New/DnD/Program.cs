@@ -181,28 +181,26 @@ namespace DnD
                         }
                         break;
 
-
-                }
-
-
-            }
-
-        }
-    }
-}
-
-
-
-                        break;
-                    case 3:
+                    case 6:
                         Console.WriteLine("Введите id персонажа");
                         int idSave = Convert.ToInt32(Console.ReadLine());
                         WordDocument wordDocument = new WordDocument();
                         wordDocument.CreatePdfSheet(dnDMethods.GetCharacters(idSave));
 
                         break;
+
+
                 }
+
+
             }
+
         }
     }
 }
+
+
+
+                        
+                    
+    

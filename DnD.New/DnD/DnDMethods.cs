@@ -131,7 +131,7 @@ namespace DnD
     
 
 
-    private void SaveFile()
+    
 
         public CharacterSheet GetCharacters (int id) //Добавил метод возврата данных персонажа по id
         {
