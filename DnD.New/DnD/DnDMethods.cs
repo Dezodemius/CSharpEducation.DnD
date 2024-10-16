@@ -84,6 +84,7 @@ namespace DnD
                 Console.WriteLine($"Текущий вес рюкзака: {character.Items.Sum(i => i.Weight)}");
     
             }
+            SaveFile(); //вызываем, чтоб сохранить инвентарь персу
         }
 
         public void RemoveItem(int id, Inventory item)
@@ -127,6 +128,7 @@ namespace DnD
                 double backpackWeigtForDisplay = character.Items.Sum(i => i.Weight);
                 Console.WriteLine($"Общий вес рюкзака: {backpackWeigtForDisplay}");
             }
+
         }
     
 
@@ -152,18 +154,26 @@ namespace DnD
             {
                 foreach (var character in characters)
                 {
+                    List<string> itemStrings = new List<string>();
+                    foreach (var item in character.Items)
+                    {
+                        itemStrings.Add($"{item.ItemName};{item.Description};{item.Weight}"); 
+                    }
+                    string itemsString = string.Join(",", itemStrings); //добавление инвентаря в файлик
+
+
                     writer.WriteLine($"{character.Id};{character.Name};{character.Race};{character.Strenght};{character.Dexterity};{character.Сonstitution};" +
                         $"{character.Intelligence};{character.Wisdom};{character.Charisma};{character.HitPoints};{character.ArmorClass};{character.Speed};" +
 						$"{character.Acrobatics};{character.Animal_Handling};{character.Arcana};{character.Athletics};{character.Deception};{character.History};" +
 						$"{character.Insight};{character.Intimidation};{character.Investigation};{character.Medicine};{character.Nature};{character.Perception};" +
 						$"{character.Performance};{character.Persuasion};{character.Religion};{character.Sleight_Of_Hand};{character.Stealth};{character.Survival};" +
-						$"{ character.Items} ");
+						$"{itemsString} ");
                 }
             }
         }
 
 
-        private void LoadFile()
+        private void LoadFile(item)
         {
             if (File.Exists(FileСharaters))
             {
@@ -171,13 +181,22 @@ namespace DnD
                 foreach (var line in lines)
                 {
                     var parts = line.Split(';');
-                    if (parts.Length >= 13)
+                    if (parts.Length >= 13) 
                     {
-                        
-                        string itemsString = parts[30];
-                        List<Inventory> items = itemsString.Split(',')
-                            .Select(itemName => new Inventory(itemName.Trim(), "", 0, false)) 
-                            .ToList();
+                        var items = new List<Inventory>();
+                        if (parts.Length > 12) 
+                        {
+                            
+                            foreach (var itemString in parts[12].Split(','))
+                            {
+                                var itemParts = itemString.Split(';');
+                                if (itemParts.Length == 4) 
+                                {
+                                    var item = new Inventory(itemParts[0], itemParts[1], Convert.ToInt32(itemParts[2]), Convert.ToBoolean(itemParts[3]));
+                                    items.Add(item);
+                                }
+                            }
+                        }
 
                         var character = new CharacterSheet(
                             Convert.ToInt32(parts[0]),
@@ -210,6 +229,7 @@ namespace DnD
 							Convert.ToInt32(parts[27]),
 							Convert.ToInt32(parts[28]),
 							Convert.ToInt32(parts[29]),
+
 							items 
                         );
 
