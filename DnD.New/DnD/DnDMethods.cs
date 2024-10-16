@@ -173,7 +173,7 @@ namespace DnD
         }
 
 
-        private void LoadFile(item)
+        private void LoadFile()
         {
             if (File.Exists(FileСharaters))
             {
