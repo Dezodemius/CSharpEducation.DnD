@@ -181,13 +181,15 @@ namespace DnD
                 foreach (var line in lines)
                 {
                     var parts = line.Split(';');
-                    if (parts.Length >= 13) 
+
+                    if (parts.Length >= 30) 
                     {
+                        
                         var items = new List<Inventory>();
-                        if (parts.Length > 12) 
+                        if (parts.Length > 30) 
                         {
-                            
-                            foreach (var itemString in parts[12].Split(','))
+                            var itemsPart = parts[30].Split(',');
+                            foreach (var itemString in itemsPart)
                             {
                                 var itemParts = itemString.Split(';');
                                 if (itemParts.Length == 4) 
@@ -198,48 +200,45 @@ namespace DnD
                             }
                         }
 
-                        var character = new CharacterSheet(
-                            Convert.ToInt32(parts[0]),
-                            parts[1],
+                            characters.Add(new CharacterSheet(
+                            Convert.ToInt32(parts[0]), 
+                            parts[1], 
                             parts[2],
-                            Convert.ToInt32(parts[3]),
-                            Convert.ToInt32(parts[4]),
-                            Convert.ToInt32(parts[5]),
-                            Convert.ToInt32(parts[6]),
-                            Convert.ToInt32(parts[7]),
-                            Convert.ToInt32(parts[8]),
-                            Convert.ToInt32(parts[9]),
-                            Convert.ToInt32(parts[10]),
-                            Convert.ToInt32(parts[11]),
-							Convert.ToInt32(parts[12]),
-							Convert.ToInt32(parts[13]),
-							Convert.ToInt32(parts[14]),
-							Convert.ToInt32(parts[15]),
-							Convert.ToInt32(parts[16]),
-							Convert.ToInt32(parts[17]),
-							Convert.ToInt32(parts[18]),
-							Convert.ToInt32(parts[19]),
-							Convert.ToInt32(parts[20]),
-							Convert.ToInt32(parts[21]),
-							Convert.ToInt32(parts[22]),
-							Convert.ToInt32(parts[23]),
-							Convert.ToInt32(parts[24]),
-							Convert.ToInt32(parts[25]),
-							Convert.ToInt32(parts[26]),
-							Convert.ToInt32(parts[27]),
-							Convert.ToInt32(parts[28]),
-							Convert.ToInt32(parts[29]),
-
-							items 
-                        );
-
-                       
+                            Convert.ToInt32(parts[3]), 
+                            Convert.ToInt32(parts[4]), 
+                            Convert.ToInt32(parts[5]), 
+                            Convert.ToInt32(parts[6]), 
+                            Convert.ToInt32(parts[7]), 
+                            Convert.ToInt32(parts[8]), 
+                            Convert.ToInt32(parts[9]), 
+                            Convert.ToInt32(parts[10]), 
+                            Convert.ToInt32(parts[11]), 
+                            Convert.ToInt32(parts[12]), 
+                            Convert.ToInt32(parts[13]),    
+                            Convert.ToInt32(parts[14]), 
+                            Convert.ToInt32(parts[15]), 
+                            Convert.ToInt32(parts[16]), 
+                            Convert.ToInt32(parts[17]), 
+                            Convert.ToInt32(parts[18]), 
+                            Convert.ToInt32(parts[19]), 
+                            Convert.ToInt32(parts[20]), 
+                            Convert.ToInt32(parts[21]), 
+                            Convert.ToInt32(parts[22]), 
+                            Convert.ToInt32(parts[23]), 
+                            Convert.ToInt32(parts[24]), 
+                            Convert.ToInt32(parts[25]), 
+                            Convert.ToInt32(parts[26]), 
+                            Convert.ToInt32(parts[27]), 
+                            Convert.ToInt32(parts[28]), 
+                            Convert.ToInt32(parts[29]),
+                            items 
+                        ));
                     }
                 }
             }
         }
 
-		public int maxSkills(int id)
+        public int maxSkills(int id)
 		{
 			var character = GetCharacters(id);
 			List<int> numbers = new List<int> { character.Strenght, character.Dexterity, character.Сonstitution, character.Intelligence, character.Wisdom, character.Charisma};
