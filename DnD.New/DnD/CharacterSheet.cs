@@ -4,7 +4,6 @@ namespace DnD
 {
     public class CharacterSheet
     {
-
         public int Id { get; set; }
         public string Name { get; set; }
         public string Race { get; set; }

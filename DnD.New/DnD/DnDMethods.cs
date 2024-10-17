@@ -246,12 +246,12 @@ namespace DnD
 			return (numbers.Max() - 10) / 2;
 		}
 
-		public int Modification(int id, int skill)
+		public int Modification(int id, string skill)
 		{
 			var character = GetCharacters(id);
 
 			int modification = 0;
-			switch (nameof(skill))
+			switch (skill)
 			{
 				case "acrobatics":
 				case "sleight_Of_Hand":
@@ -280,7 +280,8 @@ namespace DnD
 				case "performance":
 				case "persuasion":
 					modification = (character.Charisma - 10) / 2;
-				default:
+                    break;
+                default:
 					break;
 			}
 			return modification;

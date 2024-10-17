@@ -225,17 +225,18 @@ namespace DnD
                     case 6:
                         Console.WriteLine("Введите id персонажа");
                         int idSave = Convert.ToInt32(Console.ReadLine());
+                        int SaveStr = dnDMethods.Modification(idSave, "athletics");
+                        int SaveDex = dnDMethods.Modification(idSave, "acrobatics");
+                        int SaveCons = dnDMethods.Modification(idSave, "athletics");
+                        int SaveIntel = dnDMethods.Modification(idSave, "arcana");
+                        int SaveWisd = dnDMethods.Modification(idSave, "insight");
+                        int SaveChar = dnDMethods.Modification(idSave, "persuasion");
                         WordDocument wordDocument = new WordDocument();
-                        wordDocument.CreatePdfSheet(dnDMethods.GetCharacters(idSave));
+                        wordDocument.CreatePdfSheet(dnDMethods.GetCharacters(idSave), dnDMethods.maxSkills(idSave), SaveStr, SaveDex, SaveCons, SaveIntel, SaveWisd, SaveChar);
 
                         break;
-
-
                 }
-
-
             }
-
         }
     }
 }
