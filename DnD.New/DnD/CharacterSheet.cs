@@ -2,8 +2,15 @@
 
 namespace DnD
 {
+	/// <summary>
+	/// Лист персонажа
+	/// </summary>
     public class CharacterSheet
     {
+        #region Поля и свойства 
+		/// <summary>
+		/// Характеристики для DnD
+		/// </summary>
         public int Id { get; set; }
         public string Name { get; set; }
         public string Race { get; set; }
@@ -36,6 +43,12 @@ namespace DnD
 		public int Survival { get; set; }
 		public List<Inventory> Items { get; set; }
 
+        #endregion
+        #region Конструкторы
+
+		/// <summary>
+		/// Констуктор
+		/// </summary>
         public CharacterSheet(int id, string name, string race, int strenght, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int hitPoints, int armorClass, int speed, int acrobatics, int animal_Handling, int arcana, int athletics, int deception, int history, int insight,
 		int intimidation, int investigation, int medicine, int nature, int perception, int performance, int persuasion, int religion, int sleight_Of_Hand, int stealth, int survival)
 		{
@@ -71,12 +84,16 @@ namespace DnD
 			this.Survival = survival;
 			this.Items = new List<Inventory>();
         }
-
+		/// <summary>
+		/// Конструктор
+		/// </summary>
+		/// <param name="items">Реализация инветоря персонажа</param>
 		public CharacterSheet(int id, string name, string race, int strenght, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int hitPoints, int armorClass, int speed, int acrobatics, int animal_Handling, int arcana, int athletics, int deception, int history, int insight,
 			int intimidation, int investigation, int medicine, int nature, int perception, int performance, int persuasion, int religion, int sleight_Of_Hand, int stealth, int survival, List<Inventory> items)
 			: this(id, name, race, strenght, dexterity, constitution, intelligence, wisdom, charisma, hitPoints, armorClass, speed, acrobatics, animal_Handling, arcana, athletics, deception, history, insight, intimidation, investigation, medicine, nature, perception, performance, persuasion, religion, sleight_Of_Hand, stealth, survival)
 		{
 			this.Items = items;
 		}
-	}
+        #endregion
+    }
 }

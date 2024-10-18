@@ -8,16 +8,21 @@ namespace DnD.Backpack
 {
     public abstract class Subject
     {
+        #region Поля и свойства
         public string ItemName { get; set; }
 
         public string Description { get; set; }
+        #endregion
 
+        #region Конструктор
         public Subject(string itemname, string description)
         {
             ItemName = itemname;
             Description = description;
         }
+        #endregion
 
+        #region Методы
         public virtual void ShowInfo()
         {
             Console.WriteLine($"Name: {ItemName}");
@@ -27,6 +32,6 @@ namespace DnD.Backpack
         {
             return $"{ItemName}: {Description}";
         }
-
+        #endregion
     }
 }

@@ -9,7 +9,9 @@ using static System.Net.Mime.MediaTypeNames;
 namespace DnD
 {
     internal class WordDocument
-    {
+    {  /// <summary>
+    /// Метод для передачи данных в docx файл и конвертации его в PDF
+    /// </summary>
         public void CreatePdfSheet(CharacterSheet character, int ProfMax, int SaveStr, int SaveDex, int SaveCons, int SaveIntel, int SaveWisd, int SaveChar)
         {
             if (character == null)

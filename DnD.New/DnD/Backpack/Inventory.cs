@@ -8,16 +8,21 @@ namespace DnD.Backpack
 {
     public class Inventory : Subject
     {
+        #region Поля и свойства
         public int Weight { get; set; }
         public bool IsWeapon { get; set; }
+        #endregion 
 
+        #region Конструктор
         public Inventory(string itemname, string discription, int weight,  bool isWeapon) : base(itemname, discription)
         {
 
             Weight = weight;
             IsWeapon = isWeapon;
         }
+        #endregion
 
+        #region Методы
         public override void ShowInfo()
         {
             base.ShowInfo();
@@ -26,9 +31,6 @@ namespace DnD.Backpack
         {
             return base.GetInfo();
         }
-
+        #endregion
     }
-
-
-
 }
