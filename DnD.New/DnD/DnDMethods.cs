@@ -1,4 +1,6 @@
 ﻿using DnD.Backpack;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,7 @@ namespace DnD
     public class DnDMethods
     {
         List<CharacterSheet> characters = new List<CharacterSheet>();
-        private string FileСharaters = "characters.txt";
+        private string FileСharaters = "characters.json";
         
         public DnDMethods() 
         {
@@ -80,11 +82,12 @@ namespace DnD
             {
                
                 character.Items.Add(item);
+                SaveFile(); //вызываем, чтоб сохранить инвентарь персу
                 Console.WriteLine($"Предмет {item.ItemName} успешно добавлен персонажу {character.Name}.");
                 Console.WriteLine($"Текущий вес рюкзака: {character.Items.Sum(i => i.Weight)}");
     
             }
-            SaveFile(); //вызываем, чтоб сохранить инвентарь персу
+            
         }
 
         public void RemoveItem(int id, Inventory item)
@@ -150,98 +153,40 @@ namespace DnD
         }
         private void SaveFile()
         {
-            using (var writer = new StreamWriter(FileСharaters))
+            var jsonOptions = new JsonSerializerOptions
             {
-                foreach (var character in characters)
-                {
-                    List<string> itemStrings = new List<string>();
-                    foreach (var item in character.Items)
-                    {
-                        itemStrings.Add($"{item.ItemName};{item.Description};{item.Weight}"); 
-                    }
-                    string itemsString = string.Join(",", itemStrings); //добавление инвентаря в файлик
+                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.Create(System.Text.Unicode.UnicodeRanges.All),
+                PropertyNameCaseInsensitive = true,
+                IncludeFields = true,
+                WriteIndented = true
+            };
 
+            var jsonString = JsonSerializer.Serialize(characters, jsonOptions);
 
-                    writer.WriteLine($"{character.Id};{character.Name};{character.Race};{character.Strenght};{character.Dexterity};{character.Сonstitution};" +
-                        $"{character.Intelligence};{character.Wisdom};{character.Charisma};{character.HitPoints};{character.ArmorClass};{character.Speed};" +
-						$"{character.Acrobatics};{character.Animal_Handling};{character.Arcana};{character.Athletics};{character.Deception};{character.History};" +
-						$"{character.Insight};{character.Intimidation};{character.Investigation};{character.Medicine};{character.Nature};{character.Perception};" +
-						$"{character.Performance};{character.Persuasion};{character.Religion};{character.Sleight_Of_Hand};{character.Stealth};{character.Survival};" +
-						$"{itemsString} ");
-                }
-            }
+            File.WriteAllText(FileСharaters, jsonString);
         }
 
 
         private void LoadFile()
         {
-            if (File.Exists(FileСharaters))
+            if (File.Exists(FileСharaters)) 
             {
-                var lines = File.ReadAllLines(FileСharaters);
-                foreach (var line in lines)
-                {
-                    var parts = line.Split(';');
+               
+                var jsonString = File.ReadAllText(FileСharaters);
+                
+                characters = JsonSerializer.Deserialize<List<CharacterSheet>>(jsonString);
 
-                    if (parts.Length >= 30) 
-                    {
-                        
-                        var items = new List<Inventory>();
-                        if (parts.Length > 30) 
-                        {
-                            var itemsPart = parts[30].Split(',');
-                            foreach (var itemString in itemsPart)
-                            {
-                                var itemParts = itemString.Split(';');
-                                if (itemParts.Length == 4) 
-                                {
-                                    var item = new Inventory(itemParts[0], itemParts[1], Convert.ToInt32(itemParts[2]), Convert.ToBoolean(itemParts[3]));
-                                    items.Add(item);
-                                }
-                            }
-                        }
-
-                            characters.Add(new CharacterSheet(
-                            Convert.ToInt32(parts[0]), 
-                            parts[1], 
-                            parts[2],
-                            Convert.ToInt32(parts[3]), 
-                            Convert.ToInt32(parts[4]), 
-                            Convert.ToInt32(parts[5]), 
-                            Convert.ToInt32(parts[6]), 
-                            Convert.ToInt32(parts[7]), 
-                            Convert.ToInt32(parts[8]), 
-                            Convert.ToInt32(parts[9]), 
-                            Convert.ToInt32(parts[10]), 
-                            Convert.ToInt32(parts[11]), 
-                            Convert.ToInt32(parts[12]), 
-                            Convert.ToInt32(parts[13]),    
-                            Convert.ToInt32(parts[14]), 
-                            Convert.ToInt32(parts[15]), 
-                            Convert.ToInt32(parts[16]), 
-                            Convert.ToInt32(parts[17]), 
-                            Convert.ToInt32(parts[18]), 
-                            Convert.ToInt32(parts[19]), 
-                            Convert.ToInt32(parts[20]), 
-                            Convert.ToInt32(parts[21]), 
-                            Convert.ToInt32(parts[22]), 
-                            Convert.ToInt32(parts[23]), 
-                            Convert.ToInt32(parts[24]), 
-                            Convert.ToInt32(parts[25]), 
-                            Convert.ToInt32(parts[26]), 
-                            Convert.ToInt32(parts[27]), 
-                            Convert.ToInt32(parts[28]), 
-                            Convert.ToInt32(parts[29]),
-                            items 
-                        ));
-                    }
-                }
+            }
+            else
+            {
+                characters = new List<CharacterSheet>();    
             }
         }
 
         public int maxSkills(int id)
 		{
 			var character = GetCharacters(id);
-			List<int> numbers = new List<int> { character.Strenght, character.Dexterity, character.Сonstitution, character.Intelligence, character.Wisdom, character.Charisma};
+			List<int> numbers = new List<int> { character.Strenght, character.Dexterity, character.Constitution, character.Intelligence, character.Wisdom, character.Charisma};
 			numbers.Sort();
 			return (numbers.Max() - 10) / 2;
 		}

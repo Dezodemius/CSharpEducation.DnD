@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace DnD.Backpack
@@ -11,11 +12,13 @@ namespace DnD.Backpack
         public int Weight { get; set; }
         public bool IsWeapon { get; set; }
 
-        public Inventory(string itemname, string discription, int weight,  bool isWeapon) : base(itemname, discription)
-        {
 
-            Weight = weight;
-            IsWeapon = isWeapon;
+        [JsonConstructor]
+        public Inventory(string itemName, string description, int weight, bool isWeapon)
+            : base(itemName, description)  
+        {
+            this.Weight = weight;
+            this.IsWeapon = isWeapon;
         }
 
         public override void ShowInfo()

@@ -1,15 +1,17 @@
 ﻿using DnD.Backpack;
+using System.Text.Json.Serialization;
 
 namespace DnD
 {
     public class CharacterSheet
     {
+        
         public int Id { get; set; }
         public string Name { get; set; }
         public string Race { get; set; }
         public int Strenght { get; set; }
         public int Dexterity { get; set; }
-        public int Сonstitution { get; set; }
+        public int Constitution { get; set; }
         public int Intelligence { get; set; }
         public int Wisdom { get; set; }
         public int Charisma { get; set; }
@@ -36,43 +38,46 @@ namespace DnD
 		public int Survival { get; set; }
 		public List<Inventory> Items { get; set; }
 
+
+        [JsonConstructor]
         public CharacterSheet(int id, string name, string race, int strenght, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int hitPoints, int armorClass, int speed, int acrobatics, int animal_Handling, int arcana, int athletics, int deception, int history, int insight,
-		int intimidation, int investigation, int medicine, int nature, int perception, int performance, int persuasion, int religion, int sleight_Of_Hand, int stealth, int survival)
-		{
+    int intimidation, int investigation, int medicine, int nature, int perception, int performance, int persuasion, int religion, int sleight_Of_Hand, int stealth, int survival)
+        {
             this.Id = id;
             this.Name = name;
             this.Race = race;
             this.Strenght = strenght;
             this.Dexterity = dexterity;
-            this.Сonstitution = constitution;
+            this.Constitution = constitution;  // исправлено
             this.Intelligence = intelligence;
             this.Wisdom = wisdom;
             this.Charisma = charisma;
             this.HitPoints = hitPoints;
             this.ArmorClass = armorClass;
             this.Speed = speed;
-			this.Acrobatics = acrobatics;
-			this.Animal_Handling = animal_Handling;
-			this.Arcana = arcana;
-			this.Athletics = athletics;
-			this.Deception = deception;
-			this.History = history;
-			this.Insight = insight;
-			this.Intimidation = intimidation;
-			this.Investigation = investigation;
-			this.Medicine = medicine;
-			this.Nature = nature;
-			this.Perception = perception;
-			this.Performance = performance;
-			this.Persuasion = persuasion;
-			this.Religion = religion;
-			this.Sleight_Of_Hand = sleight_Of_Hand;
-			this.Stealth = stealth;
-			this.Survival = survival;
-			this.Items = new List<Inventory>();
+            this.Acrobatics = acrobatics;
+            this.Animal_Handling = animal_Handling;
+            this.Arcana = arcana;
+            this.Athletics = athletics;
+            this.Deception = deception;
+            this.History = history;
+            this.Insight = insight;
+            this.Intimidation = intimidation;
+            this.Investigation = investigation;
+            this.Medicine = medicine;
+            this.Nature = nature;
+            this.Perception = perception;
+            this.Performance = performance;
+            this.Persuasion = persuasion;
+            this.Religion = religion;
+            this.Sleight_Of_Hand = sleight_Of_Hand;
+            this.Stealth = stealth;
+            this.Survival = survival;
+            this.Items = new List<Inventory>();
         }
 
-		public CharacterSheet(int id, string name, string race, int strenght, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int hitPoints, int armorClass, int speed, int acrobatics, int animal_Handling, int arcana, int athletics, int deception, int history, int insight,
+
+        public CharacterSheet(int id, string name, string race, int strenght, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int hitPoints, int armorClass, int speed, int acrobatics, int animal_Handling, int arcana, int athletics, int deception, int history, int insight,
 			int intimidation, int investigation, int medicine, int nature, int perception, int performance, int persuasion, int religion, int sleight_Of_Hand, int stealth, int survival, List<Inventory> items)
 			: this(id, name, race, strenght, dexterity, constitution, intelligence, wisdom, charisma, hitPoints, armorClass, speed, acrobatics, animal_Handling, arcana, athletics, deception, history, insight, intimidation, investigation, medicine, nature, perception, performance, persuasion, religion, sleight_Of_Hand, stealth, survival)
 		{

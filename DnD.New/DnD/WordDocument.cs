@@ -23,7 +23,7 @@ namespace DnD
             document.Replace("InputRace", character.Race, true, true);
             document.Replace("InputStr", character.Strenght.ToString(), true, true);
             document.Replace("InputDex", character.Dexterity.ToString(), true, true);
-            document.Replace("InputCons", character.Сonstitution.ToString(), true, true);
+            document.Replace("InputCons", character.Constitution.ToString(), true, true);
             document.Replace("InputInt", character.Intelligence.ToString(), true, true);
             document.Replace("InputWis", character.Wisdom.ToString(), true, true);
             document.Replace("InputCharisma", character.Charisma.ToString(), true, true);

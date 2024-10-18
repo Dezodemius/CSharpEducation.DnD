@@ -236,6 +236,8 @@ namespace DnD
 
                         break;
                 }
+                Console.WriteLine("Press any key ");
+                Console.ReadKey();
             }
         }
     }
